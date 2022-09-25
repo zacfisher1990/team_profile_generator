@@ -1,26 +1,29 @@
-//
+//profiles
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
+//node modules
 const fs = require('fs');
 const inquirer = require('inquirer');
+//link to create html page
 const createTeam = require('./src/template.js');
+
 
 teamArray = [];
 
 
-managerPrompts();
+
 
 function employeePrompt() { 
     inquirer.prompt ([
         {
             type: 'list',
-            name: 'position',
+            name: 'role',
             message: 'Select option to add to team.',
             choices: ['Engineer', 'Intern', 'Finish building my team']
         }
     ]).then(function (input) {
-        switch(input.position) {
+        switch(input.role) {
             case 'Engineer':
                 engineerPrompts();
                 break;
@@ -29,7 +32,8 @@ function employeePrompt() {
                 break;
             case 'Finish building my team':
                 console.log('Creating HTML file');
-                createHtml();
+                writeToFile()
+                .then(function(data) {writeToFile(fileName, data)})
                 break;
       
     }})
@@ -124,6 +128,21 @@ function internPrompts() {
     })
 }
 
-function createHtml() {
-    fs.writeFileSync(path.join(__dirname, 'dist'), createTeam(teamArray), "UTF-8");
+//name of html file being created
+const fileName = "index.html";
+
+function writeToFile(fileName, data) {
+    const template = createTeam(data);
+    fs.writeFile(fileName, template, function (err) {
+        if (err) throw err;
+        console.log("Success");
+    })
 }
+
+function init () {
+    managerPrompts();
+    // .then(function(data) {writeToFile(fileName, data)})
+  } 
+
+
+init();
