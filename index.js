@@ -4,6 +4,7 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const fs = require('fs');
 const inquirer = require('inquirer');
+const createTeam = require('./src/template.js');
 
 teamArray = [];
 
@@ -14,21 +15,24 @@ function employeePrompt() {
     inquirer.prompt ([
         {
             type: 'list',
-            name: 'type',
+            name: 'position',
             message: 'Select option to add to team.',
             choices: ['Engineer', 'Intern', 'Finish building my team']
-        },
-    ]).then(function runPrompts() {
-        if(choices.value === 'Engineer') {
-            engineerPrompts();
         }
-        if(choices === 'Intern') {
-            internPrompts();
-        }
-        if(choices === 'Finish building my team') {
-            console.log("creating html file");
-        }
-    })
+    ]).then(function (input) {
+        switch(input.position) {
+            case 'Engineer':
+                engineerPrompts();
+                break;
+            case 'Intern':
+                internPrompts();
+                break;
+            case 'Finish building my team':
+                console.log('Creating HTML file');
+                createHtml();
+                break;
+      
+    }})
 }
 
 function managerPrompts() {
@@ -86,6 +90,7 @@ function engineerPrompts() {
     ]).then(answers => {
         const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
         teamArray.push(engineer);
+        employeePrompt();
     })
 }
 
@@ -115,29 +120,10 @@ function internPrompts() {
     ]).then(answers => {
         const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool);
         teamArray.push(intern);
+        employeePrompt();
     })
 }
 
-//todo: function to initilize prompts
-
-function init () {
-    
-  //   .then(function(data) {writeToFile(fileName, data)})
-  } 
-
-//todo: function to create html file
-// teamManager();
-// employee();
-
-// function writeToFile(fileName, data) {
-//     const markDown = generateMarkdown(data);
-//     fs.writeFile(fileName, markDown, function (err) {
-//         if (err) throw err;
-//         console.log("Success");
-//     })
-// }
-
-
-
-
-// init();
+function createHtml() {
+    fs.writeFileSync(path.join(__dirname, 'dist'), createTeam(teamArray), "UTF-8");
+}
