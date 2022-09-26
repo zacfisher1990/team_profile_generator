@@ -140,7 +140,7 @@ function writeToFile() {
     fs.writeFile("./dist/index.html", team, function (err) {
         if (err) throw err;
         console.log("Success");
-        console.log(teamArray)
+        // console.log(teamArray)
     })
 }
 
