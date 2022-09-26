@@ -3,15 +3,15 @@
   const generateManager = manager => {
     return `
     <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-    <div class="card-header">${manager.getRole()}</div>
+    <div class="card-header">${manager.getName()}</div>
     <div class="card-body">
-      <h5 class="card-title">${manager.getName()}</h5>
+      <h5 class="card-title">${manager.getRole()}</h5>
       <p class="card-text">
-      <ul>
-      <li>${manager.getId()}</li>
-      <li>${manager.getEmail()}</li>
-      <li>${manager.getOfficeNumber()}</li>
-      </ul>
+      
+      <p><strong>Employee ID: </strong>${manager.getId()}</p>
+      <p><strong>Email: </strong>${manager.getEmail()}</p>
+      <p><strong>Office #: </strong>${manager.getOfficeNumber()}</p>
+      
       </p>
     </div>
   </div>`
@@ -22,15 +22,15 @@
 const generateEngineer = engineer => {
     return `
     <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-    <div class="card-header">${engineer.getRole()}</div>
+    <div class="card-header">${engineer.getName()}</div>
     <div class="card-body">
-      <h5 class="card-title">${engineer.getName()}</h5>
+      <h5 class="card-title">${engineer.getRole()}</h5>
       <p class="card-text">
-      <ul>
-      <li>${engineer.getId()}</li>
-      <li>${engineer.getEmail()}</li>
-      <li>${engineer.getGithub()}</li>
-      </ul>
+      
+      <p><strong>Employee ID: </strong>${engineer.getId()}</p>
+      <p><strong>Email: </strong>${engineer.getEmail()}</p>
+      <p><strong>GitHub: </strong>${engineer.getGithub()}</p>
+      
       </p>
     </div>
   </div>`
@@ -41,19 +41,21 @@ const generateEngineer = engineer => {
 const generateIntern = intern => {
     return `
     <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-    <div class="card-header">${intern.getRole()}</div>
+    <div class="card-header">${intern.getName()}</div>
     <div class="card-body">
-      <h5 class="card-title">${intern.getName()}</h5>
+      <h5 class="card-title">${intern.getRole()}</h5>
       <p class="card-text">
-      <ul>
-      <li>${intern.getId()}</li>
-      <li>${intern.getEmail()}</li>
-      <li>${intern.getSchool()}</li>
-      </ul>
+      
+      <p><strong>Employee ID: </strong>${intern.getId()}</p>
+      <p><strong>Email: </strong>${intern.getEmail()}</p>
+      <p><strong>School: </strong>${intern.getSchool()}</p>
+      
       </p>
     </div>
   </div>`
 }
+
+//function to put cards together
 
 const employees = employeesArr => {
   let employeeHtml = ''

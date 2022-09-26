@@ -11,7 +11,7 @@ const createTeam = require('./src/template.js');
 
 teamArray = [];
 
-
+//employee selection prompt
 function employeePrompt() { 
     inquirer.prompt ([
         {
@@ -36,6 +36,7 @@ function employeePrompt() {
     }})
 }
 
+//manager prompts
 function managerPrompts() {
     inquirer.prompt ([
         {
@@ -67,7 +68,7 @@ function managerPrompts() {
     });
 }
 
-
+//engineer prompts
 function engineerPrompts() {
     inquirer.prompt([
     {
@@ -99,7 +100,7 @@ function engineerPrompts() {
     })
 }
 
-
+//intern prompts
 function internPrompts() {
     inquirer.prompt([
     {
@@ -131,7 +132,7 @@ function internPrompts() {
     })
 }
 
-//todo: function to create html file
+//function to create html file
 
 function writeToFile() {
     const team = createTeam(teamArray);
@@ -143,4 +144,5 @@ function writeToFile() {
     })
 }
 
+//initiates prompts
 managerPrompts();
