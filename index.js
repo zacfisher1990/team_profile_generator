@@ -12,8 +12,6 @@ const createTeam = require('./src/template.js');
 teamArray = [];
 
 
-
-
 function employeePrompt() { 
     inquirer.prompt ([
         {
@@ -32,8 +30,7 @@ function employeePrompt() {
                 break;
             case 'Finish building my team':
                 console.log('Creating HTML file');
-                writeToFile()
-                .then(function(data) {writeToFile(fileName, data)})
+                writeToFile();
                 break;
       
     }})
@@ -58,7 +55,7 @@ function managerPrompts() {
         },
         {
             type: 'input',
-            name: 'office',
+            name: 'officeNumber',
             message: 'Enter manager office number:'
         },
     ]).then(answers => {
@@ -128,21 +125,15 @@ function internPrompts() {
     })
 }
 
-//name of html file being created
-const fileName = "index.html";
+//todo: function to create html file
 
 function writeToFile(fileName, data) {
-    const template = createTeam(data);
-    fs.writeFile(fileName, template, function (err) {
+    data = teamArray;
+    
+    const team = createTeam(data);
+    fs.writeFile("./dist/index.html", team, function (err) {
         if (err) throw err;
         console.log("Success");
     })
 }
-
-function init () {
-    managerPrompts();
-    // .then(function(data) {writeToFile(fileName, data)})
-  } 
-
-
-init();
+managerPrompts();
