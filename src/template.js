@@ -1,65 +1,79 @@
 
-// //html for manager
-// const generateManager = function (manager) {
-//     return `
-//     <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-//     <div class="card-header">${manager.name}</div>
-//     <div class="card-body">
-//       <h5 class="card-title">${manager.role}</h5>
-//       <p class="card-text">
-//       <ul>
-//       <li>${manager.id}</li>
-//       <li>${manager.email}</li>
-//       <li>${manager.officeNumber}</li>
-//       </ul>
-//       </p>
-//     </div>
-//   </div>`
-// }
+//html for manager
+  const generateManager = manager => {
+    return `
+    <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+    <div class="card-header">${manager.getRole()}</div>
+    <div class="card-body">
+      <h5 class="card-title">${manager.getName()}</h5>
+      <p class="card-text">
+      <ul>
+      <li>${manager.getId()}</li>
+      <li>${manager.getEmail()}</li>
+      <li>${manager.getOfficeNumber()}</li>
+      </ul>
+      </p>
+    </div>
+  </div>`
+  }
 
-// //html for engineer
+//html for engineer
 
-// const generateEngineer = function (engineer) {
-//     return `
-//     <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-//     <div class="card-header">${engineer.name}</div>
-//     <div class="card-body">
-//       <h5 class="card-title">${engineer.role}</h5>
-//       <p class="card-text">
-//       <ul>
-//       <li>${engineer.id}</li>
-//       <li>${engineer.email}</li>
-//       <li>${engineer.github}</li>
-//       </ul>
-//       </p>
-//     </div>
-//   </div>`
-// }
+const generateEngineer = engineer => {
+    return `
+    <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+    <div class="card-header">${engineer.getRole()}</div>
+    <div class="card-body">
+      <h5 class="card-title">${engineer.getName()}</h5>
+      <p class="card-text">
+      <ul>
+      <li>${engineer.getId()}</li>
+      <li>${engineer.getEmail()}</li>
+      <li>${engineer.getGithub()}</li>
+      </ul>
+      </p>
+    </div>
+  </div>`
+}
 
-// //html for intern
+//html for intern
 
-// const generateIntern = function (intern) {
-//     return `
-//     <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-//     <div class="card-header">${intern.name}</div>
-//     <div class="card-body">
-//       <h5 class="card-title">${intern.role}</h5>
-//       <p class="card-text">
-//       <ul>
-//       <li>${intern.id}</li>
-//       <li>${intern.email}</li>
-//       <li>${intern.school}</li>
-//       </ul>
-//       </p>
-//     </div>
-//   </div>`
-// }
+const generateIntern = intern => {
+    return `
+    <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+    <div class="card-header">${intern.getRole()}</div>
+    <div class="card-body">
+      <h5 class="card-title">${intern.getName()}</h5>
+      <p class="card-text">
+      <ul>
+      <li>${intern.getId()}</li>
+      <li>${intern.getEmail()}</li>
+      <li>${intern.getSchool()}</li>
+      </ul>
+      </p>
+    </div>
+  </div>`
+}
 
+const employees = employeesArr => {
+  let employeeHtml = ''
 
+  for ( i = 0; i < employeesArr.length; i++ ) {
+    if (employeesArr[i].getRole() === "Manager"){
+      employeeHtml = employeeHtml + generateManager(employeesArr[i])
+    }
+    if (employeesArr[i].getRole() === "Engineer"){
+      employeeHtml = employeeHtml + generateEngineer(employeesArr[i])
+    }
+    if (employeesArr[i].getRole() === "Intern"){
+      employeeHtml = employeeHtml + generateIntern(employeesArr[i])
+    }
+  } return employeeHtml
+}
 
 //function to generate html page
 
-function createTeam(manager) {
+function createTeam(data) {
     return `
     <!DOCTYPE html>
 <html lang="en">
@@ -77,10 +91,11 @@ function createTeam(manager) {
 
 </head>
 <body>
-    <hearder>
+    <header>
         <h1>My Team</h1>
-    </hearder>
-        ${manager.name}
+    </header>
+        ${employees(data)}
+    
     
 </body>
 </html>`

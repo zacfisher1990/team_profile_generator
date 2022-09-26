@@ -58,8 +58,10 @@ function managerPrompts() {
             name: 'officeNumber',
             message: 'Enter manager office number:'
         },
-    ]).then(answers => {
-        const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOffice);
+    ]).then(managerInput => {
+        const { name, id, email, officeNumber } = managerInput;
+        const manager = new Manager (name, id, email, officeNumber);
+
         teamArray.push(manager);
         employeePrompt();
     });
@@ -85,11 +87,13 @@ function engineerPrompts() {
         },
         {
             type: 'input',
-            name: 'office',
+            name: 'github',
             message: 'Enter engineer GitHub:',
         },
-    ]).then(answers => {
-        const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
+    ]).then(engineerInput => {
+        const { name, id, email, github } = engineerInput;
+        const engineer = new Engineer (name, id, email, github);
+
         teamArray.push(engineer);
         employeePrompt();
     })
@@ -115,11 +119,13 @@ function internPrompts() {
         },
         {
             type: 'input',
-            name: 'office',
+            name: 'school',
             message: 'Enter intern school:'
         },
-    ]).then(answers => {
-        const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool);
+    ]).then(internInput => {
+        const { name, id, email, school } = internInput;
+        const intern = new Intern (name, id, email, school);
+
         teamArray.push(intern);
         employeePrompt();
     })
@@ -127,13 +133,14 @@ function internPrompts() {
 
 //todo: function to create html file
 
-function writeToFile(fileName, data) {
-    data = teamArray;
-    
-    const team = createTeam(data);
+function writeToFile() {
+    const team = createTeam(teamArray);
+
     fs.writeFile("./dist/index.html", team, function (err) {
         if (err) throw err;
         console.log("Success");
+        console.log(teamArray)
     })
 }
+
 managerPrompts();
